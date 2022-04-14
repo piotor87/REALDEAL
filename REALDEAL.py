@@ -1,7 +1,7 @@
 import argparse,io,requests,os
 import pandas as pd
-from tabulate import tabulate
 from datetime import date
+from markdownTable import markdownTable
 
 current_year = date.today().year
 
@@ -10,7 +10,9 @@ columns=["tourney_date","tourney_name","winner_name","winner_age",'loser_name','
 cols = [elem for elem in columns if "_age" not in elem]
 
 def return_data(date):
-
+    """
+    Starting from the year of the selected date, the results are imported in a datafarme.
+    """
     starting_year = int(str(date)[:4])
     years = range(starting_year,current_year+1)
     df = pd.DataFrame()
@@ -21,40 +23,57 @@ def return_data(date):
     return df
 
 def return_losses(df,real_deal,date):
-
+    """
+    Generator of the new iteration of RD. It searches for the most recent loss after a certain date.
+    """
     rd_df = filter_df(df,real_deal,date)
     while not rd_df.empty:
         #get loss with lowest age (can only be one)
         loss = rd_df.loc[rd_df['tourney_date'].idxmin()]
         rd_df = filter_df(df,loss.winner_name,loss.tourney_date)
-        res = loss.to_dict()
-        print('\t'.join([str(res[elem]) for elem in cols]))
+        res = {key:val for key,val in loss.to_dict().items() if key in cols}
         yield res
 
 
-def filter_df(df,name,date):
-    return df[(df.loser_name == name) & (df.tourney_date > date)]
 
+def fix_date(res):
+    """
+    Need to fix date in order to write it down in markdown
+    """
+    date = str(res["tourney_date"])
+    y,m,d = date[:4],date[4:6],date[6:]
+    res["tourney_date"] = f"{d}-{m}-{y}"
+    return res
+
+
+
+def filter_df(df,name,date):
+    """
+    Returns all losses of a player after a certain date.
+    """
+    return df[(df.loser_name == name) & (df.tourney_date > date)]
 
 
 def main(args):
 
-
-    html = os.path.join(os.getcwd(),"REALDEAL.template.html")
-    with open(html) as i: site = i.read()
+    # read in data
     data = return_data(args.date)
+
     
-    out_file = os.path.join(os.getcwd(),"REALDEAL.txt")
-    table_data = [cols]
+    res = []   
+    for entry in return_losses(data,args.real_deal,args.date):
+        res.append(fix_date(entry))
+        
+    df = pd.DataFrame.from_dict(res)
+    print(df)
+    
+    with open(os.path.join(os.getcwd(),"REALDEAL.template")) as i: readme = i.read()
+    readme = readme.replace("REAL_DEAL",entry["winner_name"])
+    table = df.to_markdown(index=False)
+    readme = readme.replace("TABLE",table)
+    with open(os.path.join(os.getcwd(),"README.md"),'wt') as o:o.write(readme + '\n')
+    
 
-    real_deal = return_losses(data,args.real_deal,args.date)
-    for entry in real_deal:
-        table_data.append([str(entry[elem]) for elem  in cols ])
-    table = tabulate(table_data, tablefmt='html')
-
-    html = html.replace(".template","")
-    with open(html,'wt') as o:
-        o.write(site.replace("TABLE",table))
 
         
 if __name__ == '__main__':

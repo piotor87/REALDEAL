@@ -2,7 +2,7 @@ import argparse,io,requests,os
 import pandas as pd
 from datetime import date
 from markdownTable import markdownTable
-
+round_order =["RR","R128","R64","R32",'R16','QF','SF','BR','F']
 current_year = date.today().year
 
 url="https://raw.githubusercontent.com/JeffSackmann/tennis_atp/master/atp_matches_YEAR.csv"
@@ -20,38 +20,69 @@ def return_data(date):
         s=requests.get(url.replace("YEAR",str(year))).content
         c=pd.read_csv(io.StringIO(s.decode('utf-8')),index_col=None,usecols=columns)
         df = df.append(c,ignore_index = True)
+
+    # assign order to rounds
+    df["round"] = pd.Categorical(df['round'], round_order,ordered=True)
     return df
 
 def return_losses(df,real_deal,date):
     """
     Generator of the new iteration of RD. It searches for the most recent loss after a certain date.
     """
-    rd_df = filter_df(df,real_deal,date)
-    while not rd_df.empty:
-        #get loss with lowest age (can only be one)
-        loss = rd_df.loc[rd_df['tourney_date'].idxmin()]
-        rd_df = filter_df(df,loss.winner_name,loss.tourney_date)
+    # initalize values
+    player,loss = return_earliest_loss_by_round(df,real_deal,date,round_order[0])
+    while player:
         res = {key:val for key,val in loss.to_dict().items() if key in cols}
+        # now that we have a new RD, search for new losses and update conditions
+        date,t_round = loss.tourney_date,loss["round"]
+        player,loss = return_earliest_loss_by_round(df,player,date,t_round)
+
         yield res
 
 
-
-def fix_date(res):
+def return_earliest_loss_by_round(df,old_player,old_date,old_round):
     """
-    Need to fix date in order to write it down in markdown
+    Returns oldest loss and, if date of loss is same as previous loss, makes sure new loss is in a later round.
     """
-    date = str(res["tourney_date"])
-    y,m,d = date[:4],date[4:6],date[6:]
-    res["tourney_date"] = f"{d}-{m}-{y}"
-    return res
 
+    # data frame with all losses >= old_date by old_player
+    loss_df = filter_df(df,old_player,old_date)
+    
+    # exit if no hits
+    if loss_df.empty:
+        return False,False
+
+    # candidate loss!
+    loss = loss_df.loc[loss_df['tourney_date'].idxmin()]
+    
+    # what if new loss is on same date?
+    if loss.tourney_date == old_date:
+
+        # check in the loss dataframe for all losses on that day and 
+        round_df = loss_df[(loss_df.tourney_date == old_date) & (loss_df["round"] > old_round)]
+        # if there are no later round losses it means we're stuck in some sort of loop, so we need to break it and rerun the function with original player but from the next day
+        if round_df.empty:
+            player,loss = return_earliest_loss_by_round(loss_df,old_player,old_date +1,round_order[0])            
+        #otherwise grab that loss as the new loss!
+        else:
+            loss = round_df.loc[round_df['round'].idxmin()]
+
+    return loss.winner_name,loss
 
 
 def filter_df(df,name,date):
     """
     Returns all losses of a player after a certain date.
     """
-    return df[(df.loser_name == name) & (df.tourney_date > date)]
+    return df[(df.loser_name == name) & (df.tourney_date >= date) ]
+
+def fix_date(res):
+    """
+    Need to fix date in order to write it down in markdown
+    """
+    date = str(res["tourney_date"])
+    res["tourney_date"] = f"{date[6:]}-{date[4:6]}-{date[:4]}"
+    return res
 
 
 def main(args):
@@ -62,17 +93,20 @@ def main(args):
     
     res = []   
     for entry in return_losses(data,args.real_deal,args.date):
-        res.append(fix_date(entry))
         
+        res.append(fix_date(entry))        
     df = pd.DataFrame.from_dict(res)
-    print(df)
     
-    with open(os.path.join(os.getcwd(),"REALDEAL.template")) as i: readme = i.read()
-    readme = readme.replace("REAL_DEAL",entry["winner_name"])
-    table = df.to_markdown(index=False)
-    readme = readme.replace("TABLE",table)
-    with open(os.path.join(os.getcwd(),"README.md"),'wt') as o:o.write(readme + '\n')
-    
+    if not df.empty:
+        print(df)
+        with open(os.path.join(os.getcwd(),"REALDEAL.template")) as i: readme = i.read()
+        readme = readme.replace("REAL_DEAL",entry["winner_name"])
+        table = df.to_markdown(index=False)
+        readme = readme.replace("TABLE",table)
+        with open(os.path.join(os.getcwd(),"README.md"),'wt') as o:o.write(readme + '\n')
+    else:
+          print("NO CHANGES IN THE REAL DEAL!")
+          print(f"{args.real_deal} still holds the crown!")
 
 
         

@@ -1,4 +1,4 @@
-# WHO'S THE REAL DEAL?
+# WHO'S THE REAL DEAL™?
 
 Since Carlos was unanimously awarded the REAL DEAL™ award after winning his first 1000 in Miami on April 2022, his defeat against Korda in Montecarlo means that the American became the new REAL DEAL™. But who's holding the crown now?.
 
@@ -11,7 +11,7 @@ Here's a history of who were the previous title holders:
 TABLE
 
 
-## Wanna build your own REAL DEAL™
+## Wanna build your own REAL DEAL™?
 
 Run ```python3 REALDEAL.py --rd "FIRST_NAME LAST_NAME" --date YYYYMMDD ```
 The script will update the README with the new table.

@@ -4,7 +4,7 @@ Since Carlos was unanimously awarded the REAL DEAL™ award after winning his fi
 
 The answer is: ***Novak Djokovic***
 
-Last entry in databse: 29-08-2022
+Last entry in database: 29-08-2022
 
 Shoutout to [JeffSackmann](https://github.com/JeffSackmann/tennis_atp) for creating a formatted data set!
 

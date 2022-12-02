@@ -2,9 +2,9 @@
 
 Since Carlos was unanimously awarded the REAL DEAL™ award after winning his first 1000 in Miami on April 2022, his defeat against Korda in Montecarlo means that the American became the new REAL DEAL™. But who's holding the crown now?
 
-The answer is: ***Novak Djokovic***
+The answer is: ***Holger Rune***
 
-Last entry in database: 29-08-2022
+Last entry in database: 27-11-2022
 
 Shoutout to [JeffSackmann](https://github.com/JeffSackmann/tennis_atp) for creating a formatted data set!
 
@@ -21,6 +21,11 @@ Here's a history of who were the previous title holders:
 | Roland Garros       | 23-05-2022     | Rafael Nadal                | Alexander Zverev            | 7-6(8) 6-6 RET     | SF      |
 | Wimbledon           | 27-06-2022     | Nick Kyrgios                | Rafael Nadal                | W/O                | SF      |
 | Wimbledon           | 27-06-2022     | Novak Djokovic              | Nick Kyrgios                | 4-6 6-3 6-4 7-6(3) | F       |
+| Laver Cup           | 23-09-2022     | Felix Auger Aliassime       | Novak Djokovic              | 6-3 7-6(3)         | RR      |
+| Astana              | 03-10-2022     | Roberto Bautista Agut       | Felix Auger Aliassime       | 6-4 7-6(6)         | R32     |
+| Astana              | 03-10-2022     | Daniil Medvedev             | Roberto Bautista Agut       | 6-1 6-1            | QF      |
+| Astana              | 03-10-2022     | Novak Djokovic              | Daniil Medvedev             | 4-6 7-6(6) 0-0 RET | SF      |
+| Paris Masters       | 31-10-2022     | Holger Rune                 | Novak Djokovic              | 3-6 6-3 7-5        | F       |
 
 
 ## Wanna build your own REAL DEAL™?

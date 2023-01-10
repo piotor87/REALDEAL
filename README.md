@@ -2,9 +2,9 @@
 
 Since Carlos was unanimously awarded the REAL DEAL™ award after winning his first 1000 in Miami on April 2022, his defeat against Korda in Montecarlo means that the American became the new REAL DEAL™. But who's holding the crown now?
 
-The answer is: ***Holger Rune***
+The answer is: ***Novak Djokovic***
 
-Last entry in database: 27-11-2022
+Last entry in database: 02-01-2023
 
 Shoutout to [JeffSackmann](https://github.com/JeffSackmann/tennis_atp) for creating a formatted data set!
 
@@ -26,6 +26,9 @@ Here's a history of who were the previous title holders:
 | Astana              | 03-10-2022     | Daniil Medvedev             | Roberto Bautista Agut       | 6-1 6-1            | QF      |
 | Astana              | 03-10-2022     | Novak Djokovic              | Daniil Medvedev             | 4-6 7-6(6) 0-0 RET | SF      |
 | Paris Masters       | 31-10-2022     | Holger Rune                 | Novak Djokovic              | 3-6 6-3 7-5        | F       |
+| Adelaide 1          | 02-01-2023     | Yoshihito Nishioka          | Holger Rune                 | 2-6 6-4 6-4        | R32     |
+| Adelaide 1          | 02-01-2023     | Sebastian Korda             | Yoshihito Nishioka          | 7-6(5) 1-0 RET     | SF      |
+| Adelaide 1          | 02-01-2023     | Novak Djokovic              | Sebastian Korda             | 6-7(8) 7-6(3) 6-4  | F       |
 
 
 ## Wanna build your own REAL DEAL™?

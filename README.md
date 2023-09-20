@@ -2,9 +2,9 @@
 
 Since Carlos was unanimously awarded the REAL DEAL™ award after winning his first 1000 in Miami on April 2022, his defeat against Korda in Montecarlo means that the American became the new REAL DEAL™. But who's holding the crown now?
 
-The answer is: ***Carlos Alcaraz***
+The answer is: ***Novak Djokovic***
 
-Last entry in database: 24-07-2023
+Last entry in database: 28-08-2023
 
 Shoutout to [JeffSackmann](https://github.com/JeffSackmann/tennis_atp) for creating a formatted data set!
 
@@ -49,6 +49,11 @@ Here's a history of who were the previous title holders:
 | Roland Garros        | 29-05-2023     | Casper Ruud                 | Alexander Zverev            | 6-3 6-4 6-0               | SF      |
 | Roland Garros        | 29-05-2023     | Novak Djokovic              | Casper Ruud                 | 7-6(1) 6-3 7-5            | F       |
 | Wimbledon            | 03-07-2023     | Carlos Alcaraz              | Novak Djokovic              | 1-6 7-6(6) 6-1 3-6 6-4    | F       |
+| Canada Masters       | 07-08-2023     | Tommy Paul                  | Carlos Alcaraz              | 6-3 4-6 6-3               | QF      |
+| Canada Masters       | 07-08-2023     | Jannik Sinner               | Tommy Paul                  | 6-4 6-4                   | SF      |
+| Cincinnati Masters   | 14-08-2023     | Dusan Lajovic               | Jannik Sinner               | 6-4 7-6(4)                | R32     |
+| Cincinnati Masters   | 14-08-2023     | Taylor Fritz                | Dusan Lajovic               | 5-0 RET                   | R16     |
+| Cincinnati Masters   | 14-08-2023     | Novak Djokovic              | Taylor Fritz                | 6-0 6-4                   | QF      |
 
 
 ## Wanna build your own REAL DEAL™?

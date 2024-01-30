@@ -71,7 +71,7 @@ def return_data(date):
     for year in years:
         s=requests.get(url.replace("YEAR",str(year))).content
         c=pd.read_csv(io.StringIO(s.decode('utf-8')),index_col=None,usecols=columns)
-        df = df.append(c,ignore_index = True)
+        df = pd.concat([df, c], ignore_index=True)
 
     # assign order to rounds
     df["round"] = pd.Categorical(df['round'], round_order,ordered=True)
